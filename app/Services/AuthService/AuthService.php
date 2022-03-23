@@ -1,7 +1,8 @@
 <?php
  
 namespace App\Services\AuthService;
- 
+
+use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use App\Services\AuthService\AuthInterface;
 use Illuminate\Http\Request;
@@ -18,7 +19,7 @@ class AuthService implements AuthInterface
         $validator = Validator::make(
             $request->all(),
             [
-                'name' => 'required',
+                'name' => 'required|string',
                 'email' => 'required|email',
                 'password' => 'required',
                 'confirm_password' => 'required|same:password',
@@ -28,7 +29,7 @@ class AuthService implements AuthInterface
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 401);
         }
-
+        
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;

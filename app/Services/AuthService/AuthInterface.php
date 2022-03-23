@@ -1,7 +1,8 @@
 <?php
  
  namespace App\Services\AuthService;
- 
+
+use App\Http\Requests\RegisterRequest;
 use Illuminate\Http\Request;
 
 interface AuthInterface

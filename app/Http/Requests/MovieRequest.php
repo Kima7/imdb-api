@@ -29,7 +29,7 @@ class MovieRequest extends FormRequest
             'title' => ['required', 'string', 'min:2', 'max:100'],
             'description' => ['required', 'string','min:10', 'max:500'],
             'cover_image' => ['required', 'string'],
-            'genre' => ['required', 'string', Rule::in(array_keys(Movie::MOVIE_GENRES))],
+            'genre' => ['required']
         ];
     }
 }

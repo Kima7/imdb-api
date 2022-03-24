@@ -1,9 +1,8 @@
 <?php
 namespace App\Http\Resources;
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Models\Genre;
 
-class MovieResource extends JsonResource
+class GenreResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,10 +14,7 @@ class MovieResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'title' => $this->title,
-            'description' => $this->description,
-            'cover_image' => $this->cover_image,
-            'genre' => Genre::find($this->genre_id)->type
+            'type' => $this->type,
         ];
     }
 }

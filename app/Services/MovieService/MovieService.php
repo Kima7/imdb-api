@@ -3,7 +3,9 @@
 namespace App\Services\MovieService;
 
 use App\Http\Requests\MovieRequest;
+use App\Http\Resources\GenreResource;
 use App\Models\Movie;
+use App\Models\Genre;
 use App\Http\Resources\MovieResource;
 
 class MovieService implements MovieInterface
@@ -16,12 +18,13 @@ class MovieService implements MovieInterface
 
     public function store(MovieRequest $request)
     {
-        Movie::create($request->validated());
+        //$request->genre = Movie::MOVIE_GENRE_DRAMA;
+        return Movie::create($request->validated());
     }
 
     public function show(Movie $movie)
     {
-        return new MovieResource(Movie::find($movie)->first());
+        return new MovieResource(Movie::find($movie->id));
     }
 
     public function destroy(Movie $movie)
@@ -31,7 +34,7 @@ class MovieService implements MovieInterface
 
     public function allGenres()
     {
-        return Movie::MOVIE_GENRES;
+        return GenreResource::collection(Genre::all());
     }
     
 }

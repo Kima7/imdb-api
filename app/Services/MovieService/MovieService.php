@@ -18,8 +18,7 @@ class MovieService implements MovieInterface
 
     public function store(MovieRequest $request)
     {
-        //$request->genre = Movie::MOVIE_GENRE_DRAMA;
-        return Movie::create($request->validated());
+        return Movie::create($request->prepared());
     }
 
     public function show(Movie $movie)

@@ -28,3 +28,4 @@ Route::post('logout', [AuthController::class, 'logout'])->middleware(['auth:api'
 
 Route::resource('movies', MovieController::class);
 Route::get('genres', [MovieController::class, 'genres']);
+Route::get('genreFilter/{genre}', [MovieController::class, 'genreFilter']);

@@ -62,7 +62,7 @@ class AuthService implements AuthInterface
             JWTAuth::invalidate(JWTAuth::getToken());
 
             return response()->json([
-                'message' => 'User logged out successfully'
+                'message' => 'You logged out successfully!'
             ], Response::HTTP_OK);
         } catch (JWTException $exception) {
             return response()->json([

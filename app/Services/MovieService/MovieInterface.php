@@ -16,4 +16,6 @@ interface MovieInterface
     public function destroy(Movie $movie);
 
     public function allGenres();
+
+    public function genreFilter($genre);
 }

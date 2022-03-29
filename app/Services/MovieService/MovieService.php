@@ -36,4 +36,10 @@ class MovieService implements MovieInterface
         return GenreResource::collection(Genre::all());
     }
     
+    public function genreFilter($genre)
+    {
+        $genreId = Genre::where('type',$genre)->first()->id;
+        $filteredMovies = Movie::where('genre_id',$genreId)->get();
+        return MovieResource::collection($filteredMovies);
+    }
 }

@@ -68,4 +68,14 @@ class MovieController extends Controller
     {
         return $this->movieService->allGenres();
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function genreFilter($genre)
+    {
+        return $this->movieService->genreFilter($genre);
+    }
 }

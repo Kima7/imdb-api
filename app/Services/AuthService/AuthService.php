@@ -14,31 +14,9 @@ use Symfony\Component\HttpFoundation\Response;
 class AuthService implements AuthInterface
 {
 
-    public function register(Request $request)
+    public function register(RegisterRequest $request)
     {
-        $validator = Validator::make(
-            $request->all(),
-            [
-                'name' => 'required|string',
-                'email' => 'required|email',
-                'password' => 'required',
-                'confirm_password' => 'required|same:password',
-            ]
-        );
-
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 401);
-        }
-        
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password);
-        $user->save();
-
-        return response()->json([
-            'data' => $user
-        ], Response::HTTP_OK);
+        return User::create($request->validated());
     }
 
     public function login(Array $input)
@@ -47,7 +25,7 @@ class AuthService implements AuthInterface
 
         if (!$token = JWTAuth::attempt($input)) {
             return response()->json([
-                'error' => 'Invalid Email or Password',
+                'message' => 'Invalid Email or Password',
             ], Response::HTTP_UNAUTHORIZED);
         }
 

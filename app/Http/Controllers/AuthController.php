@@ -19,10 +19,10 @@ class AuthController extends Controller
     /**
      * Register new user
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\RegisterRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function register(Request $request)
+    public function register(RegisterRequest $request)
     {
         return $this->authService->register($request);
     }

@@ -27,5 +27,5 @@ Route::post('me', [AuthController::class, 'me'])->middleware(['auth:api']);
 Route::post('logout', [AuthController::class, 'logout'])->middleware(['auth:api']);
 
 Route::resource('movies', MovieController::class)->middleware(['auth:api']);
-Route::get('genres', [MovieController::class, 'genres']);
-Route::get('genreFilter/{genre}', [MovieController::class, 'genreFilter']);
+Route::get('genres', [MovieController::class, 'genres'])->middleware(['auth:api']);
+Route::get('genreFilter/{genre}', [MovieController::class, 'genreFilter'])->middleware(['auth:api']);

@@ -47,7 +47,7 @@ class AuthService implements AuthInterface
 
         if (!$token = JWTAuth::attempt($input)) {
             return response()->json([
-                'message' => 'Invalid Email or Password',
+                'error' => 'Invalid Email or Password',
             ], Response::HTTP_UNAUTHORIZED);
         }
 
@@ -66,7 +66,7 @@ class AuthService implements AuthInterface
             ], Response::HTTP_OK);
         } catch (JWTException $exception) {
             return response()->json([
-                'message' => $exception->getMessage()
+                'error' => $exception->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }

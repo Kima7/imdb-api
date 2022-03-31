@@ -18,7 +18,10 @@ class MovieResource extends JsonResource
             'title' => $this->title,
             'description' => $this->description,
             'cover_image' => $this->cover_image,
-            'genre' => Genre::find($this->genre_id)->type
+            'genre' => Genre::find($this->genre_id)->type,
+            'like_count' => $this->like_count,
+            'dislike_count' => $this->dislike_count,
+            'visited_count' => $this->visited_count,
         ];
     }
 }

@@ -19,7 +19,10 @@ class Movie extends Model
         'title',
         'description',
         'cover_image',
-        'genre_id'
+        'genre_id',
+        'like_count',
+        'dislike_count',
+        'visited_count',
     ];
 
     public function genre()

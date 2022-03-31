@@ -30,4 +30,14 @@ class RegisterRequest extends FormRequest
             'confirm_password' => 'required|same:password'
         ];
     }
+
+    public function prepared()
+    {
+        $validated = $this->validated();
+        if ($this->filled('password')) {
+            $validated['password'] = bcrypt($this->password);
+        }
+
+        return $validated;
+    }
 }

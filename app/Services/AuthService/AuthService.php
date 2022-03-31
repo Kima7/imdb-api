@@ -16,7 +16,7 @@ class AuthService implements AuthInterface
 
     public function register(RegisterRequest $request)
     {
-        return User::create($request->validated());
+        return User::create($request->prepared());
     }
 
     public function login(Array $input)

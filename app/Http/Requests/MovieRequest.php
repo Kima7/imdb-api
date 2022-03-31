@@ -40,10 +40,12 @@ class MovieRequest extends FormRequest
         $validated = $this->validated();
 
         if ($this->filled('genre')) {
-            //$validated->add(['genre_id' => Genre::where('type','=',$this->genre)->first()->id]);
             $validated['genre_id'] = Genre::where('type','=',$this->genre)->first()->id;
-            //echo($validated);
+            $validated['like_count'] = 0;
+            $validated['dislike_count'] = 0;
+            $validated['visited_count'] = 0;
         }
+
         return $validated;
     }
 }

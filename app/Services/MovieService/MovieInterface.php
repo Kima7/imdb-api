@@ -4,6 +4,7 @@
 
 use App\Http\Requests\MovieRequest;
 use App\Models\Movie;
+use App\Http\Requests\LikeRequest;
 
 interface MovieInterface
 {
@@ -18,4 +19,8 @@ interface MovieInterface
     public function allGenres();
 
     public function genreFilter($genre);
+
+    public function storeLike(LikeRequest $request);
+
+    public function getLikes($userId);
 }

@@ -13,15 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('movies', function (Blueprint $table) {
+        Schema::create('likes', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->longText('description');
-            $table->string('cover_image');
-            $table->foreignId('genre_id')->constrained()->onDelete('cascade');
-            $table->integer('like_count');
-            $table->integer('dislike_count');
-            $table->integer('visited_count');
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('movie_id')->constrained();
+            $table->boolean('like');           
             $table->timestamps();
         });
     }
@@ -33,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('movies');
+        Schema::dropIfExists('likes');
     }
 };

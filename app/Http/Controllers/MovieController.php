@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MovieRequest;
 use App\Models\Movie;
 use App\Services\MovieService\MovieInterface;
+use Illuminate\Http\Request;
+use App\Http\Requests\LikeRequest;
 
 class MovieController extends Controller
 {
@@ -77,5 +79,26 @@ class MovieController extends Controller
     public function genreFilter($genre)
     {
         return $this->movieService->genreFilter($genre);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \App\Http\Requests\LikeRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeLike(LikeRequest $request)
+    {
+        return $this->movieService->storeLike($request);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getLikes($userId)
+    {
+        return $this->movieService->getLikes($userId);
     }
 }

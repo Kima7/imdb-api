@@ -30,4 +30,5 @@ Route::resource('movies', MovieController::class)->middleware(['auth:api']);
 Route::get('genres', [MovieController::class, 'genres'])->middleware(['auth:api']);
 Route::get('genreFilter/{genre}', [MovieController::class, 'genreFilter'])->middleware(['auth:api']);
 Route::post('storeLike', [MovieController::class, 'storeLike'])->middleware(['auth:api']);
-Route::get('getLikes/{userId}',[MovieController::class, 'getLikes'])->middleware(['auth:api']);
+Route::get('getAllLikes/{userId}',[MovieController::class, 'getAllLikes'])->middleware(['auth:api']);
+Route::get('getLike/{userId}/{movieId}',[MovieController::class, 'getLike'])->middleware(['auth:api']);

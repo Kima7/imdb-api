@@ -22,5 +22,7 @@ interface MovieInterface
 
     public function storeLike(LikeRequest $request);
 
-    public function getLikes($userId);
+    public function getAllLikes($userId);
+
+    public function getLike($userId,$movieId);
 }

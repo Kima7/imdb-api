@@ -97,8 +97,18 @@ class MovieController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getLikes($userId)
+    public function getAllLikes($userId)
     {
-        return $this->movieService->getLikes($userId);
+        return $this->movieService->getAllLikes($userId);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getLike($userId,$movieId)
+    {
+        return $this->movieService->getLike($userId,$movieId);
     }
 }

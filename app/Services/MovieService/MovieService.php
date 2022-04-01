@@ -62,9 +62,15 @@ class MovieService implements MovieInterface
         return MovieResource::collection(Movie::all());
     }
 
-    public function getLikes($userId)
+    public function getAllLikes($userId)
     {
         $likes = Like::where('user_id', $userId)->get();
         return LikeResource::collection($likes);
+    }
+
+    public function getLike($userId,$movieId)
+    {
+        $like = Like::where([['user_id', $userId],['movie_id', $movieId]])->first();
+        return new LikeResource($like);
     }
 }

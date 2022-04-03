@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MovieRequest;
 use App\Models\Movie;
 use App\Services\MovieService\MovieInterface;
-use Illuminate\Http\Request;
 use App\Http\Requests\LikeRequest;
 
 class MovieController extends Controller
@@ -90,25 +89,5 @@ class MovieController extends Controller
     public function storeLike(LikeRequest $request)
     {
         return $this->movieService->storeLike($request);
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function getAllLikes($userId)
-    {
-        return $this->movieService->getAllLikes($userId);
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function getLike($userId,$movieId)
-    {
-        return $this->movieService->getLike($userId,$movieId);
     }
 }

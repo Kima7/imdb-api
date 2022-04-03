@@ -1,6 +1,6 @@
 <?php
- 
- namespace App\Services\MovieService;
+
+namespace App\Services\MovieService;
 
 use App\Http\Requests\MovieRequest;
 use App\Models\Movie;
@@ -21,8 +21,4 @@ interface MovieInterface
     public function genreFilter($genre);
 
     public function storeLike(LikeRequest $request);
-
-    public function getAllLikes($userId);
-
-    public function getLike($userId,$movieId);
 }

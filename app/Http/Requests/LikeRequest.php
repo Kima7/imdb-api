@@ -24,9 +24,12 @@ class LikeRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => ['required', 'integer', 'exists:App\Models\User,id'],
             'movie_id' => ['required', 'integer', 'exists:App\Models\Movie,id'],
             'like' => ['required', 'boolean']
         ];
+    }
+    public function prepared()
+    {
+        return [...$this->validated(), 'user_id' => $this->user()->id];
     }
 }

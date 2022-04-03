@@ -7,9 +7,11 @@ use App\Http\Resources\GenreResource;
 use App\Http\Resources\MovieResource;
 use App\Http\Requests\LikeRequest;
 use App\Http\Resources\LikeResource;
+use Illuminate\Http\Request;
 use App\Models\Movie;
 use App\Models\Genre;
 use App\Models\Like;
+use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 
 class MovieService implements MovieInterface
 {
@@ -27,7 +29,7 @@ class MovieService implements MovieInterface
     public function show(Movie $movie)
     {
         $movie = Movie::find($movie->id);
-        $movie->visited_count +=1;
+        $movie->visited_count += 1;
         $movie->save();
         return new MovieResource($movie);
     }
@@ -51,26 +53,11 @@ class MovieService implements MovieInterface
 
     public function storeLike(LikeRequest $request)
     {
-        $validated = $request->validated();
-        Like::create($validated);
-        $movie = Movie::find($request->movie_id);
-        if ($request->like)
-            $movie->like_count += 1;
-        else
-            $movie->dislike_count += 1;
-        $movie->save();
+        $validated = $request->prepared();
+        Like::updateOrCreate(
+            ['user_id' => $validated['user_id'], 'movie_id' => $validated['movie_id']],
+            ['like' => $validated['like']]
+        );
         return MovieResource::collection(Movie::all());
-    }
-
-    public function getAllLikes($userId)
-    {
-        $likes = Like::where('user_id', $userId)->get();
-        return LikeResource::collection($likes);
-    }
-
-    public function getLike($userId,$movieId)
-    {
-        $like = Like::where([['user_id', $userId],['movie_id', $movieId]])->first();
-        return new LikeResource($like);
     }
 }

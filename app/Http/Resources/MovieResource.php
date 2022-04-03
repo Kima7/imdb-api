@@ -1,7 +1,10 @@
 <?php
+
 namespace App\Http\Resources;
+
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Models\Genre;
+use App\Models\Like;
 
 class MovieResource extends JsonResource
 {
@@ -19,9 +22,10 @@ class MovieResource extends JsonResource
             'description' => $this->description,
             'cover_image' => $this->cover_image,
             'genre' => Genre::find($this->genre_id)->type,
-            'like_count' => $this->like_count,
-            'dislike_count' => $this->dislike_count,
+            'like_count' => Like::where([['movie_id', $this->id], ['like', true]])->count(),
+            'dislike_count' => Like::where([['movie_id', $this->id], ['like', false]])->count(),
             'visited_count' => $this->visited_count,
+            'action' => Like::where([['movie_id', $this->id], ['user_id', $request->user()->id]])->first()?->like
         ];
     }
 }

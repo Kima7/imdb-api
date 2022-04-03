@@ -2,7 +2,7 @@
 namespace App\Http\Resources;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class LikeResource extends JsonResource
+class CommentResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -13,8 +13,7 @@ class LikeResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'movie_id' => $this->movie_id,
-            'like' => $this->like,
+            'message' => $this->message,
         ];
     }
 }

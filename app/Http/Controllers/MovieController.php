@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CommentRequest;
 use App\Http\Requests\MovieRequest;
 use App\Models\Movie;
 use App\Services\MovieService\MovieInterface;
@@ -89,5 +90,16 @@ class MovieController extends Controller
     public function storeLike(LikeRequest $request)
     {
         return $this->movieService->storeLike($request);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \App\Http\Requests\CommentRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeComment(CommentRequest $request)
+    {
+        return $this->movieService->storeComment($request);
     }
 }

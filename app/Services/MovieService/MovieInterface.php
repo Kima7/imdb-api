@@ -2,6 +2,7 @@
 
 namespace App\Services\MovieService;
 
+use App\Http\Requests\CommentRequest;
 use App\Http\Requests\MovieRequest;
 use App\Models\Movie;
 use App\Http\Requests\LikeRequest;
@@ -21,4 +22,6 @@ interface MovieInterface
     public function genreFilter($genre);
 
     public function storeLike(LikeRequest $request);
+
+    public function storeComment(CommentRequest $request);
 }

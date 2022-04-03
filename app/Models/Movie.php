@@ -29,4 +29,8 @@ class Movie extends Model
     {
         return $this->belongsTo(Genre::class);
     }
+    public function comments()
+    {
+        return $this->hasMany(Comment::class)->orderBy('created_at','DESC');
+    }
 }

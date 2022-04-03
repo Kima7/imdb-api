@@ -2,23 +2,23 @@
 
 namespace App\Services\MovieService;
 
+use App\Http\Requests\CommentRequest;
 use App\Http\Requests\MovieRequest;
 use App\Http\Resources\GenreResource;
 use App\Http\Resources\MovieResource;
 use App\Http\Requests\LikeRequest;
-use App\Http\Resources\LikeResource;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Models\Movie;
 use App\Models\Genre;
 use App\Models\Like;
-use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 
 class MovieService implements MovieInterface
 {
 
     public function getAllMovies()
     {
-        return MovieResource::collection(Movie::all());
+        return MovieResource::collection(Movie::orderBy('created_at','DESC')->get());
     }
 
     public function store(MovieRequest $request)
@@ -31,6 +31,7 @@ class MovieService implements MovieInterface
         $movie = Movie::find($movie->id);
         $movie->visited_count += 1;
         $movie->save();
+        $movie->load(['comments']);
         return new MovieResource($movie);
     }
 
@@ -60,4 +61,10 @@ class MovieService implements MovieInterface
         );
         return MovieResource::collection(Movie::all());
     }
+
+    public function storeComment(CommentRequest $request)
+    {
+        return Comment::create($request->prepared());
+    }
+
 }

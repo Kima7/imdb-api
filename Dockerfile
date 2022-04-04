@@ -1,6 +1,6 @@
 FROM php:8.0-fpm
 
-WORKDIR /
+WORKDIR /app
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
@@ -37,7 +37,7 @@ RUN useradd -u 1000 -ms /bin/bash -g www www
 RUN mkdir -p /var/log/supervisor
 
 # Copy existing application directory contents
-COPY . /var/www
+COPY ./app /var/www
 
 # Copy existing application directory permissions
 COPY --chown=www:www . /var/www

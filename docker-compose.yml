@@ -5,7 +5,6 @@ services:
             context: .
             dockerfile: Dockerfile
         container_name: laravel
-        working_dir: /app
         volumes:
             - ./:/app
     web:

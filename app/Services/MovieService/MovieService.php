@@ -102,6 +102,7 @@ class MovieService implements MovieInterface
 
     public function removeFromWatchList(WatchListRequest $request)
     {
-        return WatchList::where([['movie_id', $request->movie_id], ['user_id', $request->user_id]])->delete();
+        $validated = $request->prepared();
+        return WatchList::where([['movie_id', $validated['movie_id']], ['user_id', $validated['user_id']]])->delete();
     }
 }

@@ -146,4 +146,15 @@ class MovieController extends Controller
     {
         return $this->movieService->getWatchList($request);
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Http\Requests\WatchListRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function removeFromWatchList(WatchListRequest $request)
+    {
+        return $this->movieService->removeFromWatchList($request);
+    }
 }

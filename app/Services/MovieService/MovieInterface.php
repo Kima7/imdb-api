@@ -34,4 +34,6 @@ interface MovieInterface
     public function addToWatchList(WatchListRequest $request);
 
     public function getWatchList(Request $request);
+
+    public function removeFromWatchList(WatchListRequest $request);
 }

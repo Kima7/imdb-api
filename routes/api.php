@@ -35,3 +35,4 @@ Route::get('relatedMovies/{movie_id}', [MovieController::class, 'relatedMovies']
 Route::get('popularMovies', [MovieController::class, 'popularMovies'])->middleware(['auth:api']);
 Route::post('addToWatchList', [MovieController::class, 'addToWatchList'])->middleware(['auth:api']);
 Route::get('getWatchList', [MovieController::class, 'getWatchList'])->middleware(['auth:api']);
+Route::delete('removeFromWatchList', [MovieController::class, 'removeFromWatchList'])->middleware(['auth:api']);

@@ -7,18 +7,21 @@ use App\Http\Requests\MovieRequest;
 use App\Http\Resources\GenreResource;
 use App\Http\Resources\MovieResource;
 use App\Http\Requests\LikeRequest;
-use App\Models\Comment;
+use App\Http\Requests\WatchListRequest;
 use Illuminate\Http\Request;
+use App\Models\Comment;
 use App\Models\Movie;
 use App\Models\Genre;
 use App\Models\Like;
+use App\Models\WatchList;
+use Illuminate\Support\Facades\DB;
 
 class MovieService implements MovieInterface
 {
 
     public function getAllMovies()
     {
-        return MovieResource::collection(Movie::orderBy('created_at','DESC')->get());
+        return MovieResource::collection(Movie::orderBy('created_at', 'DESC')->get());
     }
 
     public function store(MovieRequest $request)
@@ -59,7 +62,7 @@ class MovieService implements MovieInterface
             ['user_id' => $validated['user_id'], 'movie_id' => $validated['movie_id']],
             ['like' => $validated['like']]
         );
-        return MovieResource::collection(Movie::all());
+        return MovieResource::collection(Movie::orderBy('created_at', 'DESC')->get());
     }
 
     public function storeComment(CommentRequest $request)
@@ -67,4 +70,33 @@ class MovieService implements MovieInterface
         return Comment::create($request->prepared());
     }
 
+    public function relatedMovies($movie_id)
+    {
+        $genreId = Movie::where('id', $movie_id)->first()->genre_id;
+        $relatedMovies = Movie::where([['genre_id', '=', $genreId], ['id', '!=', $movie_id]])->get();
+        return MovieResource::collection($relatedMovies);
+    }
+
+    public function popularMovies()
+    {
+        return [];
+    }
+
+    public function addToWatchList(WatchListRequest $request)
+    {
+        $validated = $request->prepared();
+        return WatchList::updateOrCreate(
+            ['user_id' => $validated['user_id'], 'movie_id' => $validated['movie_id']],
+            ['watched' => $validated['watched']]
+        );
+    }
+
+    public function getWatchList(Request $request)
+    {
+        $movies = WatchList::select('movies.*')
+            ->join('movies', 'movies.id', '=', 'watch_lists.movie_id')
+            ->where('watch_lists.user_id', '=', $request->user()->id)
+            ->get();
+        return MovieResource::collection($movies);
+    }
 }

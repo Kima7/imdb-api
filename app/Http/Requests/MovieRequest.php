@@ -28,19 +28,18 @@ class MovieRequest extends FormRequest
 
         return [
             'title' => ['required', 'string', 'min:2', 'max:100'],
-            'description' => ['required', 'string','min:10', 'max:500'],
+            'description' => ['required', 'string', 'min:10', 'max:500'],
             'cover_image' => ['required', 'string'],
-            'genre' => ['required', 'string','exists:App\Models\Genre,type']
+            'genre' => ['required', 'string', 'exists:App\Models\Genre,type']
         ];
     }
 
     public function prepared()
     {
-        //echo($this);
         $validated = $this->validated();
 
         if ($this->filled('genre')) {
-            $validated['genre_id'] = Genre::where('type','=',$this->genre)->first()->id;
+            $validated['genre_id'] = Genre::where('type', '=', $this->genre)->first()->id;
             $validated['like_count'] = 0;
             $validated['dislike_count'] = 0;
             $validated['visited_count'] = 0;

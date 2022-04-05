@@ -30,3 +30,8 @@ Route::resource('movies', MovieController::class)->middleware(['auth:api']);
 Route::get('genres', [MovieController::class, 'genres'])->middleware(['auth:api']);
 Route::get('genreFilter/{genre}', [MovieController::class, 'genreFilter'])->middleware(['auth:api']);
 Route::post('storeLike', [MovieController::class, 'storeLike'])->middleware(['auth:api']);
+Route::post('storeComment', [MovieController::class, 'storeComment'])->middleware(['auth:api']);
+Route::get('relatedMovies/{movie_id}', [MovieController::class, 'relatedMovies'])->middleware(['auth:api']);
+Route::get('popularMovies', [MovieController::class, 'popularMovies'])->middleware(['auth:api']);
+Route::post('addToWatchList', [MovieController::class, 'addToWatchList'])->middleware(['auth:api']);
+Route::get('getWatchList', [MovieController::class, 'getWatchList'])->middleware(['auth:api']);

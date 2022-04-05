@@ -6,6 +6,7 @@ use App\Http\Resources\CommentResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Models\Genre;
 use App\Models\Like;
+use App\Models\WatchList;
 
 class MovieResource extends JsonResource
 {
@@ -28,6 +29,7 @@ class MovieResource extends JsonResource
             'visited_count' => $this->visited_count,
             'action' => Like::where([['movie_id', $this->id], ['user_id', $request->user()->id]])->first()?->like,
             'comments' => CommentResource::collection($this->whenLoaded('comments')),
+            'watched' => WatchList::where([['movie_id', $this->id], ['user_id', $request->user()->id]])->first()?->watched,
         ];
     }
 }

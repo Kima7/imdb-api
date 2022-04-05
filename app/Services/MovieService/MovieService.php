@@ -21,7 +21,7 @@ class MovieService implements MovieInterface
 
     public function getAllMovies()
     {
-        return MovieResource::collection(Movie::orderBy('created_at', 'DESC')->get());
+        return MovieResource::collection(Movie::orderBy('created_at', 'DESC')->paginate(10));
     }
 
     public function store(MovieRequest $request)

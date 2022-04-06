@@ -118,11 +118,12 @@ class MovieController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function popularMovies()
+    public function popularMovies(Request $request)
     {
-        return $this->movieService->popularMovies();
+        return $this->movieService->popularMovies($request);
     }
 
     /**

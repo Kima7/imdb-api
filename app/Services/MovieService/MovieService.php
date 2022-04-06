@@ -77,9 +77,10 @@ class MovieService implements MovieInterface
         return MovieResource::collection($relatedMovies);
     }
 
-    public function popularMovies()
+    public function popularMovies(Request $request)
     {
-        return [];
+        $movies = Movie::orderBy('visited_count', 'DESC')->limit(10)->get();
+        return MovieResource::collection($movies);
     }
 
     public function addToWatchList(WatchListRequest $request)

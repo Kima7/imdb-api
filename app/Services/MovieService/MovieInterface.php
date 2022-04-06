@@ -29,7 +29,7 @@ interface MovieInterface
 
     public function relatedMovies($movie_id);
 
-    public function popularMovies();
+    public function popularMovies(Request $request);
 
     public function addToWatchList(WatchListRequest $request);
 

@@ -7,6 +7,7 @@ use App\Http\Requests\MovieRequest;
 use App\Http\Resources\GenreResource;
 use App\Http\Resources\MovieResource;
 use App\Http\Requests\LikeRequest;
+use App\Http\Requests\SearchRequest;
 use App\Http\Requests\WatchListRequest;
 use Illuminate\Http\Request;
 use App\Models\Comment;
@@ -53,6 +54,28 @@ class MovieService implements MovieInterface
         $genreId = Genre::where('type', $genre)->first()->id;
         $filteredMovies = Movie::where('genre_id', $genreId)->get();
         return MovieResource::collection($filteredMovies);
+    }
+
+    public function movieSearch(SearchRequest $request)
+    {
+        $validated = $request->prepared();
+
+        if($validated['genre'])
+        {           
+            $filteredMovies = Movie::select('movies.*')
+            ->where('genre_id','=', $validated['genre_id'])
+            ->where(DB::raw('lower(title)'), 'LIKE', '%'.$validated['searchValue'].'%')
+            ->get();
+            return MovieResource::collection($filteredMovies);
+        }
+        else
+        {
+            $filteredMovies = Movie::select('movies.*')
+            ->where(DB::raw('lower(title)'), 'LIKE', '%'.$validated['searchValue'].'%')
+            ->get();
+            return MovieResource::collection($filteredMovies);
+        }
+
     }
 
     public function storeLike(LikeRequest $request)

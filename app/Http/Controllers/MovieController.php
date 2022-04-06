@@ -7,6 +7,7 @@ use App\Http\Requests\MovieRequest;
 use App\Models\Movie;
 use App\Services\MovieService\MovieInterface;
 use App\Http\Requests\LikeRequest;
+use App\Http\Requests\SearchRequest;
 use Illuminate\Http\Request;
 use App\Http\Requests\WatchListRequest;
 
@@ -81,6 +82,17 @@ class MovieController extends Controller
     public function genreFilter($genre)
     {
         return $this->movieService->genreFilter($genre);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param  \App\Http\Requests\SearchRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function movieSearch(SearchRequest $request)
+    {
+        return $this->movieService->movieSearch($request);
     }
 
     /**

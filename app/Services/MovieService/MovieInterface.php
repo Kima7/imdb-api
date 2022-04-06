@@ -5,6 +5,7 @@ namespace App\Services\MovieService;
 use App\Http\Requests\CommentRequest;
 use App\Http\Requests\MovieRequest;
 use App\Http\Requests\WatchListRequest;
+use App\Http\Requests\SearchRequest;
 use App\Models\Movie;
 use App\Http\Requests\LikeRequest;
 use Illuminate\Http\Request;
@@ -22,6 +23,8 @@ interface MovieInterface
     public function allGenres();
 
     public function genreFilter($genre);
+
+    public function movieSearch(SearchRequest $request);
 
     public function storeLike(LikeRequest $request);
 

@@ -26,7 +26,7 @@ class SearchRequest extends FormRequest
     {
         return [
             'genre' => ['nullable', 'string'],
-            'searchValue' => ['required', 'string'],
+            'searchValue' => ['nullable', 'string'],
         ];
     }
     public function prepared()
@@ -35,6 +35,9 @@ class SearchRequest extends FormRequest
 
         if ($this->filled('genre')) {
             $validated['genre_id'] = Genre::where('type', '=', $this->genre)->first()->id;
+            $validated['searchValue'] = strtolower($validated['searchValue']);
+        }
+        if ($this->filled('searchValue')) {
             $validated['searchValue'] = strtolower($validated['searchValue']);
         }
 

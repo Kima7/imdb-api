@@ -52,7 +52,7 @@ class MovieService implements MovieInterface
     public function genreFilter($genre)
     {
         $genreId = Genre::where('type', $genre)->first()->id;
-        $filteredMovies = Movie::where('genre_id', $genreId)->get();
+        $filteredMovies = Movie::where('genre_id', $genreId)->paginate(10);
         return MovieResource::collection($filteredMovies);
     }
 
@@ -60,22 +60,22 @@ class MovieService implements MovieInterface
     {
         $validated = $request->prepared();
 
-        if($validated['genre'])
-        {           
+        if ($request->genre && $request->searchValue) {
             $filteredMovies = Movie::select('movies.*')
-            ->where('genre_id','=', $validated['genre_id'])
-            ->where(DB::raw('lower(title)'), 'LIKE', '%'.$validated['searchValue'].'%')
-            ->get();
+                ->where('genre_id', '=', $validated['genre_id'])
+                ->where(DB::raw('lower(title)'), 'LIKE', '%' . $validated['searchValue'] . '%')
+                ->paginate(10);
             return MovieResource::collection($filteredMovies);
-        }
-        else
-        {
+        } else if ($request->searchValue) {
             $filteredMovies = Movie::select('movies.*')
-            ->where(DB::raw('lower(title)'), 'LIKE', '%'.$validated['searchValue'].'%')
-            ->get();
+                ->where(DB::raw('lower(title)'), 'LIKE', '%' . $validated['searchValue'] . '%')
+                ->paginate(10);
             return MovieResource::collection($filteredMovies);
+        } else if ($request->genre) {
+            return $this->genreFilter($request->genre);
+        } else {
+            return $this->getAllMovies();
         }
-
     }
 
     public function storeLike(LikeRequest $request)

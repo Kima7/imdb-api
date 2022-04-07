@@ -61,8 +61,7 @@ class MovieService implements MovieInterface
         $validated = $request->prepared();
 
         if ($request->genre && $request->searchValue) {
-            $filteredMovies = Movie::select('movies.*')
-                ->where('genre_id', '=', $validated['genre_id'])
+            $filteredMovies = Movie::where('genre_id', '=', $validated['genre_id'])
                 ->where(DB::raw('lower(title)'), 'LIKE', '%' . $validated['searchValue'] . '%')
                 ->paginate(10);
             return MovieResource::collection($filteredMovies);
